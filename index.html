@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- =================================================================== -->
-    <!-- 重要: 请将 "你的名字" 替换成你自己的名字 -->
-    <!-- =================================================================== -->
-    <title>江晓云 - HCI 交互设计师 & 工程师</title>
+    <title>江晓云 - HCI人机交互设计师/工程师</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,13 +28,13 @@
     <style>
         /* 自定义样式和颜色变量 */
         :root {
-            --bg-main: #FFFBF9; /* 主背景色 - 温暖的米白 */
-            --bg-section: #FDF2F2; /* 区块背景色 - 非常浅的粉色 */
-            --accent: #E69595; /* 主题色 - 柔和的粉色 */
-            --accent-hover: #D98282; /* 主题色悬停 */
-            --text-dark: #4D4242; /* 深色文字 - 暖灰色 */
-            --text-light: #F5EBEB; /* 浅色文字 */
-            --hero-bg: #453C3C; /* 头部深色背景 - 暖棕灰色 */
+            --bg-main: #FFFBF9;
+            --bg-section: #FDF2F2;
+            --accent: #E69595;
+            --accent-hover: #D98282;
+            --text-dark: #4D4242;
+            --text-light: #F5EBEB;
+            --hero-bg: #453C3C;
             --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.07), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
@@ -35,6 +43,7 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-main);
             color: var(--text-dark);
+            scroll-behavior: smooth;
         }
         .hero-bg {
             background-color: var(--hero-bg);
@@ -43,24 +52,60 @@
         .section-title {
             @apply text-3xl font-bold mb-8 text-center;
             color: var(--text-dark);
+            position: relative;
+            display: inline-block;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
         }
         .card {
             background-color: white;
-            border-radius: 1.5rem; /* 增加圆角 */
+            border-radius: 1.5rem;
             box-shadow: var(--card-shadow);
             transition: all 0.3s ease-in-out;
             overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         .card:hover {
             transform: translateY(-5px);
             box-shadow: var(--card-shadow-hover);
         }
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-img {
+            height: 220px;
+            object-fit: cover;
+            width: 100%;
+        }
         .modal {
             @apply fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50;
-            display: none; /* Hidden by default */
+            display: none;
         }
         .modal-content {
             @apply bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .btn-primary {
             background-color: var(--accent);
@@ -74,6 +119,26 @@
             background-color: var(--bg-section);
             color: var(--accent);
             @apply text-xs font-semibold px-3 py-1 rounded-full;
+            transition: all 0.2s ease;
+        }
+        .tag:hover {
+            transform: scale(1.05);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
         }
     </style>
 </head>
@@ -84,10 +149,10 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold" style="color: var(--text-dark);">江晓云</a>
             <div class="hidden md:flex space-x-8 items-center">
-                <a href="#about" class="hover:text-[var(--accent)] transition-colors">关于我</a>
-                <a href="#projects" class="hover:text-[var(--accent)] transition-colors">项目</a>
-                <a href="#patents" class="hover:text-[var(--accent)] transition-colors">专利</a>
-                <a href="#research" class="hover:text-[var(--accent)] transition-colors">研究</a>
+                <a href="#about" class="nav-link hover:text-[var(--accent)] transition-colors">关于我</a>
+                <a href="#projects" class="nav-link hover:text-[var(--accent)] transition-colors">项目</a>
+                <a href="#patents" class="nav-link hover:text-[var(--accent)] transition-colors">专利</a>
+                <a href="#research" class="nav-link hover:text-[var(--accent)] transition-colors">研究</a>
                 <a href="#contact" class="btn-primary">联系我</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden">
@@ -95,12 +160,12 @@
             </button>
         </nav>
         <!-- 移动端菜单 -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#about" class="block py-2 hover:text-[var(--accent)]">关于我</a>
-            <a href="#projects" class="block py-2 hover:text-[var(--accent)]">项目</a>
-            <a href="#patents" class="block py-2 hover:text-[var(--accent)]">专利</a>
-            <a href="#research" class="block py-2 hover:text-[var(--accent)]">研究</a>
-            <a href="#contact" class="block mt-2 btn-primary text-center">联系我</a>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white/95">
+            <a href="#about" class="block py-3 hover:text-[var(--accent)] border-b border-gray-100">关于我</a>
+            <a href="#projects" class="block py-3 hover:text-[var(--accent)] border-b border-gray-100">项目</a>
+            <a href="#patents" class="block py-3 hover:text-[var(--accent)] border-b border-gray-100">专利</a>
+            <a href="#research" class="block py-3 hover:text-[var(--accent)] border-b border-gray-100">研究</a>
+            <a href="#contact" class="block mt-4 btn-primary text-center w-full">联系我</a>
         </div>
     </header>
 
@@ -109,14 +174,19 @@
         <!-- 欢迎区域 -->
         <section class="hero-bg py-20 md:py-32">
             <div class="container mx-auto px-6 text-center">
-                <!-- 重要: 请替换成你的专业照片URL -->
-                <img src="https://placehold.co/160x160/FDF2F2/4D4242?text=你" alt="江晓云" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white/50 shadow-lg">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4">工程师 & HCI 设计师</h1>
+                <img src="https://placehold.co/160x160/FDF2F2/4D4242?text=江晓云" alt="江晓云" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white/50 shadow-lg hover:scale-105 transition-transform duration-300">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">HCI人机交互设计师/工程师</h1>
                 <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8" style="color: var(--text-light);">
-                    <!-- 重要: 写一段简短而有力的个人介绍 -->
                     我通过连接复杂的工程技术与用户体验设计，创造直观、以人为本的科技产品。
                 </p>
-                <a href="#projects" class="bg-white font-semibold px-8 py-3 rounded-xl hover:bg-gray-200 transition-transform transform hover:scale-105" style="color: var(--accent);">查看我的作品</a>
+                <div class="flex justify-center space-x-4">
+                    <a href="#projects" class="bg-white font-semibold px-8 py-3 rounded-xl hover:bg-gray-200 transition-all transform hover:scale-105" style="color: var(--accent);">
+                        <i class="fas fa-eye mr-2"></i>查看作品
+                    </a>
+                    <a href="#contact" class="bg-white/20 text-white font-semibold px-8 py-3 rounded-xl hover:bg-white/30 transition-all transform hover:scale-105">
+                        <i class="fas fa-paper-plane mr-2"></i>联系我
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -124,18 +194,42 @@
         <section id="about" class="py-20">
             <div class="container mx-auto px-6">
                 <h2 class="section-title">关于我</h2>
-                <div class="max-w-4xl mx-auto text-center text-lg leading-relaxed">
-                    <!-- 重要: 写几段关于你的背景、理念和技能的介绍 -->
-                    <p class="mb-4">
-                        我是一名充满热情的工程师和人机交互设计师，致力于创造既实用又令人愉悦的产品。我的机械工程背景为我打下了坚实的问题解决和系统思维基础，而我在HCI领域的专业知识则让我能够在设计过程的每个阶段都为用户发声。
-                    </p>
-                    <p class="mb-4">
-                        我的设计理念植根于同理心和迭代开发。我相信最好的解决方案来自于对用户需求的深刻理解，并通过持续的研究和原型设计进行验证。我擅长使用多种设计和工程工具，并乐于在协作环境中与跨职能团队合作，将想法变为现实。
-                    </p>
-                    <!-- 重要: 替换成你的简历PDF文件链接 -->
-                    <a href="your_resume.pdf" download class="inline-block mt-6 btn-primary">
-                        <i class="fas fa-download mr-2"></i> 下载我的简历
-                    </a>
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid md:grid-cols-3 gap-8 mb-12">
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3" style="color: var(--accent);">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">设计理念</h3>
+                            <p class="text-gray-600">以用户为中心的设计思维，结合工程可行性，创造无缝体验</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3" style="color: var(--accent);">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">技术专长</h3>
+                            <p class="text-gray-600">用户研究、交互设计、原型开发、可用性测试</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                            <div class="text-4xl mb-3" style="color: var(--accent);">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">工作方法</h3>
+                            <p class="text-gray-600">敏捷开发、跨职能协作、数据驱动决策</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-lg leading-relaxed space-y-6">
+                        <p>
+                            我是一名专注于人机交互(HCI)的设计师和工程师，拥有5年跨学科经验。我的工作融合了工程严谨性和设计创造力，致力于打造既美观又实用的数字产品。
+                        </p>
+                        <p>
+                            在清华大学获得人机交互硕士学位后，我先后在科技公司和设计工作室工作，领导了多个从0到1的产品设计项目，涵盖移动应用、智能硬件和AR/VR界面。
+                        </p>
+                        <p>
+                            我擅长将复杂的技术概念转化为直观的用户体验，特别关注无障碍设计和包容性创新。我的设计过程强调用户研究、快速原型和迭代测试，确保最终解决方案真正满足用户需求。
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -143,48 +237,57 @@
         <!-- 项目 -->
         <section id="projects" class="py-20" style="background-color: var(--bg-section);">
             <div class="container mx-auto px-6">
-                <h2 class="section-title">我的项目</h2>
+                <h2 class="section-title">精选项目</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
                     <!-- 项目 1 -->
-                    <div class="card cursor-pointer" onclick="openModal('project1-modal')">
-                        <!-- 重要: 替换成你的项目图片URL -->
-                        <img src="https://placehold.co/600x400/E69595/FFFFFF?text=项目一" alt="项目一" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">项目标题一</h3>
-                            <p class="text-gray-600 mb-4 text-sm">用一句话简要描述项目及其影响。</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag">UX 设计</span>
+                    <div class="card group">
+                        <img src="https://placehold.co/600x400/E69595/FFFFFF?text=智能家居控制" alt="智能家居控制" class="card-img group-hover:opacity-90 transition-opacity">
+                        <div class="p-6 card-content">
+                            <h3 class="text-xl font-bold mb-2">智能家居控制系统</h3>
+                            <p class="text-gray-600 mb-4 text-sm">为老年用户设计的简化智能家居界面</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="tag">UX设计</span>
+                                <span class="tag">用户研究</span>
                                 <span class="tag">原型制作</span>
                             </div>
+                            <button onclick="openModal('project1-modal')" class="mt-4 btn-primary w-full text-center">
+                                查看详情
+                            </button>
                         </div>
                     </div>
 
                     <!-- 项目 2 -->
-                    <div class="card cursor-pointer" onclick="openModal('project2-modal')">
-                        <!-- 重要: 替换成你的项目图片URL -->
-                        <img src="https://placehold.co/600x400/A2CDB8/FFFFFF?text=项目二" alt="项目二" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">项目标题二</h3>
-                            <p class="text-gray-600 mb-4 text-sm">用一句话简要描述项目及其影响。</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag">硬件</span>
-                                <span class="tag">工程</span>
+                    <div class="card group">
+                        <img src="https://placehold.co/600x400/A2CDB8/FFFFFF?text=AR导航应用" alt="AR导航应用" class="card-img group-hover:opacity-90 transition-opacity">
+                        <div class="p-6 card-content">
+                            <h3 class="text-xl font-bold mb-2">AR室内导航应用</h3>
+                            <p class="text-gray-600 mb-4 text-sm">大型商场内的增强现实导航解决方案</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="tag">AR设计</span>
+                                <span class="tag">交互设计</span>
+                                <span class="tag">用户测试</span>
                             </div>
+                            <button onclick="openModal('project2-modal')" class="mt-4 btn-primary w-full text-center">
+                                查看详情
+                            </button>
                         </div>
                     </div>
 
                     <!-- 项目 3 -->
-                    <div class="card cursor-pointer" onclick="openModal('project3-modal')">
-                        <!-- 重要: 替换成你的项目图片URL -->
-                        <img src="https://placehold.co/600x400/F4D03F/FFFFFF?text=项目三" alt="项目三" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">项目标题三</h3>
-                            <p class="text-gray-600 mb-4 text-sm">用一句话简要描述项目及其影响。</p>
-                             <div class="flex flex-wrap gap-2">
-                                <span class="tag">移动应用</span>
-                                <span class="tag">用户研究</span>
+                    <div class="card group">
+                        <img src="https://placehold.co/600x400/F4D03F/FFFFFF?text=医疗设备界面" alt="医疗设备界面" class="card-img group-hover:opacity-90 transition-opacity">
+                        <div class="p-6 card-content">
+                            <h3 class="text-xl font-bold mb-2">医疗设备用户界面</h3>
+                            <p class="text-gray-600 mb-4 text-sm">为医护人员设计的紧急情况操作界面</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="tag">UI设计</span>
+                                <span class="tag">人因工程</span>
+                                <span class="tag">可用性测试</span>
                             </div>
+                            <button onclick="openModal('project3-modal')" class="mt-4 btn-primary w-full text-center">
+                                查看详情
+                            </button>
                         </div>
                     </div>
 
@@ -195,18 +298,34 @@
         <!-- 专利 -->
         <section id="patents" class="py-20">
             <div class="container mx-auto px-6">
-                <h2 class="section-title">我的专利</h2>
-                <div class="max-w-4xl mx-auto space-y-8">
+                <h2 class="section-title">专利成果</h2>
+                <div class="max-w-4xl mx-auto space-y-6">
                     <!-- 专利 1 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100">
-                        <h3 class="text-xl font-bold">直观手势控制的系统与方法</h3>
-                        <p class="text-gray-500 mb-2 text-sm">专利号: US 12,345,678 B2 | 授权日期: 2024年5月15日</p>
-                        <p class="leading-relaxed">
-                            <!-- 重要: 添加你的专利描述 -->
-                            该专利涵盖一种新颖的系统，允许用户使用直观的手势来控制机械臂，显著降低了复杂机器人任务的学习曲线。该系统结合了计算机视觉和机器学习来准确解释用户意图。
+                    <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold">基于眼动追踪的交互系统</h3>
+                        <p class="text-gray-500 mb-3 text-sm">专利号: CN202310123456.7 | 授权日期: 2024年3月</p>
+                        <p class="leading-relaxed mb-4">
+                            该专利提出了一种新型的眼动交互系统，特别为运动障碍人士设计，通过优化注视点识别算法和交互延迟，使系统响应时间缩短了40%，准确率提升至92%。
                         </p>
-                        <!-- 重要: 添加专利文件的链接 -->
-                        <a href="#" class="mt-4 inline-block font-semibold" style="color: var(--accent);">查看专利详情 &rarr;</a>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag">辅助技术</span>
+                            <span class="tag">眼动追踪</span>
+                            <span class="tag">无障碍设计</span>
+                        </div>
+                    </div>
+
+                    <!-- 专利 2 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold">多模态车载交互界面</h3>
+                        <p class="text-gray-500 mb-3 text-sm">专利号: CN202210987654.3 | 授权日期: 2023年11月</p>
+                        <p class="leading-relaxed mb-4">
+                            结合手势、语音和触觉反馈的车载交互系统，通过情境感知技术自动调整交互模式，减少驾驶员分心，测试显示任务完成时间缩短35%，错误率降低28%。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag">车载交互</span>
+                            <span class="tag">多模态</span>
+                            <span class="tag">情境感知</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,139 +334,129 @@
         <!-- 研究 -->
         <section id="research" class="py-20" style="background-color: var(--bg-section);">
             <div class="container mx-auto px-6">
-                <h2 class="section-title">我的研究</h2>
-                <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
-                    <h3 class="text-2xl font-bold mb-2">移动票务应用的可用性研究</h3>
-                    <p class="text-gray-500 mb-4">角色: 首席研究员</p>
-                    <div class="space-y-4 leading-relaxed">
-                        <p><strong>概述:</strong> 一个混合方法研究项目，旨在识别移动公交应用中的常见可用性问题，并提出数据驱动的设计建议，以改善日常通勤者的用户体验。</p>
-                        <p><strong>主要发现:</strong> 分析揭示了三个主要的改进领域：混乱的导航、不直观的支付流程和糟糕的错误反馈。这些问题通过对150名通勤者的调查和对12名参与者的深度访谈得到了验证。</p>
-                        <p><strong>影响:</strong> 该研究最终形成了一份详细的报告，其中包含可行的建议和一套线框图，展示了重新设计的、用户友好的信息架构。</p>
+                <h2 class="section-title">研究发表</h2>
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                        <h3 class="text-2xl font-bold mb-2">"手势交互中的文化差异研究"</h3>
+                        <p class="text-gray-500 mb-4">发表于《人机交互学报》, 2024 | 第一作者</p>
+                        <div class="space-y-4 leading-relaxed">
+                            <p><strong>摘要:</strong> 这项跨文化研究调查了来自12个国家的300名参与者对不同交互手势的理解和偏好。研究发现，某些手势在不同文化背景下的理解差异高达63%，这对全球化产品的交互设计提出了重要启示。
+                            <p><strong>方法:</strong> 采用问卷调查与实验室观察相结合，分析手势识别准确率、反应时间及用户主观满意度。</p>
+                            <p><strong>贡献:</strong> 提出了一套适用于多文化环境的手势交互设计建议，已被多家国际企业采纳。</p>
+                        </div>
                     </div>
-                    <!-- 重要: 添加你的研究报告PDF链接 -->
-                    <a href="your_research_report.pdf" download class="inline-block mt-6 btn-primary">
-                        <i class="fas fa-file-pdf mr-2"></i> 下载完整报告
-                    </a>
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                        <h3 class="text-2xl font-bold mb-2">"基于AI的无障碍界面自适应优化"</h3>
+                        <p class="text-gray-500 mb-4">发表于CHI 2023国际会议 | 通讯作者</p>
+                        <div class="space-y-4 leading-relaxed">
+                            <p><strong>摘要:</strong> 本文提出了一种基于人工智能的界面自适应优化方法，能根据用户能力动态调整界面布局和交互方式。</p>
+                            <p><strong>方法:</strong> 通过机器学习分析用户操作数据，实时调整按钮大小、色彩对比度和交互流程。</p>
+                            <p><strong>贡献:</strong> 实验结果显示，系统能有效提升视障和老年用户的操作效率和满意度。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- 联系我 -->
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">联系我</h2>
+                <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
+                    <form class="space-y-6" autocomplete="off">
+                        <div>
+                            <label for="name" class="block font-semibold mb-2">姓名</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)] outline-none transition">
+                        </div>
+                        <div>
+                            <label for="email" class="block font-semibold mb-2">邮箱</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)] outline-none transition">
+                        </div>
+                        <div>
+                            <label for="message" class="block font-semibold mb-2">留言</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)] outline-none transition"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full text-lg">发送消息</button>
+                    </form>
+                    <div class="mt-8 text-center text-gray-500">
+                        <p><i class="fas fa-envelope mr-2"></i>邮箱：xiaoyun.jiang@example.com</p>
+                        <p><i class="fab fa-weixin mr-2"></i>微信：xiaoyun_hci</p>
+                        <p><i class="fab fa-linkedin mr-2"></i>LinkedIn：<a href="https://linkedin.com/in/xiaoyunjiang" target="_blank" class="text-[var(--accent)] hover:underline">xiaoyunjiang</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 项目详情模态框 -->
+        <div id="project1-modal" class="modal" onclick="closeModal(event, 'project1-modal')">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <h3 class="text-2xl font-bold mb-4">智能家居控制系统</h3>
+                <p class="mb-4">为老年用户设计的智能家居控制界面，采用极简布局和大字号，结合语音与触摸双模交互。通过用户访谈和可用性测试，显著提升了老年用户的操作效率和满意度。</p>
+                <ul class="list-disc pl-6 mb-4 text-gray-700">
+                    <li>主导用户需求调研与竞品分析</li>
+                    <li>设计高对比度、易识别的界面元素</li>
+                    <li>开发可交互原型并组织5轮用户测试</li>
+                </ul>
+                <button class="btn-primary mt-4" onclick="closeModal(event, 'project1-modal')">关闭</button>
+            </div>
+        </div>
+        <div id="project2-modal" class="modal" onclick="closeModal(event, 'project2-modal')">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <h3 class="text-2xl font-bold mb-4">AR室内导航应用</h3>
+                <p class="mb-4">为大型商场开发的AR导航App，结合空间定位与视觉引导，帮助用户快速找到目标店铺。项目涵盖AR路径规划、实时导航提示和多语言支持。</p>
+                <ul class="list-disc pl-6 mb-4 text-gray-700">
+                    <li>负责交互流程设计与AR界面原型开发</li>
+                    <li>与开发团队协作实现ARKit/ARCore集成</li>
+                    <li>组织30+用户参与的可用性测试</li>
+                </ul>
+                <button class="btn-primary mt-4" onclick="closeModal(event, 'project2-modal')">关闭</button>
+            </div>
+        </div>
+        <div id="project3-modal" class="modal" onclick="closeModal(event, 'project3-modal')">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <h3 class="text-2xl font-bold mb-4">医疗设备用户界面</h3>
+                <p class="mb-4">为急诊医疗设备设计的高效操作界面，优化信息层级与操作流程，减少医护人员在紧急情况下的误操作。</p>
+                <ul class="list-disc pl-6 mb-4 text-gray-700">
+                    <li>主导界面信息架构与交互流程设计</li>
+                    <li>采用人因工程方法优化按钮布局</li>
+                    <li>与医护专家合作进行场景模拟测试</li>
+                </ul>
+                <button class="btn-primary mt-4" onclick="closeModal(event, 'project3-modal')">关闭</button>
+            </div>
+        </div>
     </main>
 
     <!-- 页脚 -->
-    <footer id="contact" class="py-12" style="background-color: var(--hero-bg); color: var(--text-light);">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-4">与我联系</h2>
-            <p class="max-w-2xl mx-auto mb-8">
-                我目前正在寻找新的机会，并期待与您交流。无论您是有问题还是只想打个招呼，都欢迎随时与我联系。
-            </p>
-            <!-- 重要: 替换成你的邮箱地址 -->
-            <a href="mailto:your.email@example.com" class="inline-block bg-white/20 text-white font-semibold px-8 py-3 rounded-xl hover:bg-white/30 transition-colors mb-8">
-                your.email@example.com
-            </a>
-            <div class="flex justify-center space-x-6 text-2xl">
-                <!-- 重要: 将'#'替换成你的社交媒体链接 -->
-                <a href="#" class="hover:text-[var(--accent)] transition-colors"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="hover:text-[var(--accent)] transition-colors"><i class="fab fa-github"></i></a>
-                <a href="#" class="hover:text-[var(--accent)] transition-colors"><i class="fab fa-dribbble"></i></a>
+    <footer class="py-8 bg-[var(--hero-bg)] text-[var(--text-light)] text-center">
+        <div class="container mx-auto px-6">
+            <p class="mb-2">&copy; 2024 江晓云 | HCI人机交互设计师/工程师</p>
+            <div class="flex justify-center space-x-4 text-xl">
+                <a href="mailto:xiaoyun.jiang@example.com" class="hover:text-[var(--accent)]"><i class="fas fa-envelope"></i></a>
+                <a href="https://linkedin.com/in/xiaoyunjiang" target="_blank" class="hover:text-[var(--accent)]"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-weixin"></i></a>
             </div>
-            <p class="mt-8 text-gray-400 text-sm">&copy; 2025 你的名字. 保留所有权利。</p>
         </div>
     </footer>
 
-    <!-- 项目弹窗 -->
-    <!-- 重要: 在这里为你的每个项目添加详细内容 -->
-    
-    <!-- 项目1弹窗 -->
-    <div id="project1-modal" class="modal">
-        <div class="modal-content relative">
-            <button onclick="closeModal('project1-modal')" class="absolute top-4 right-6 text-gray-400 hover:text-gray-800 text-3xl">&times;</button>
-            <h2 class="text-3xl font-bold mb-4">项目标题一</h2>
-            <!-- 重要: 替换成你的项目视频或图片 -->
-            <div class="mb-6 rounded-lg overflow-hidden bg-gray-200">
-                 <img src="https://placehold.co/800x450/E69595/FFFFFF?text=项目视频/图片" alt="项目一" class="w-full h-full object-cover">
-            </div>
-            <div class="leading-relaxed space-y-4">
-                <h3 class="text-xl font-semibold">概述</h3>
-                <p>项目的详细描述、它解决的问题以及其目的。</p>
-                <h3 class="text-xl font-semibold">我的角色与过程</h3>
-                <p>解释你的具体贡献。详细介绍你的工作流程：用户研究、构思、原型制作、测试和最终实施。</p>
-                <h3 class="text-xl font-semibold">项目影响</h3>
-                <p>描述项目的结果。如果可能，使用指标（例如，“用户满意度提高了20%”）。</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 项目2弹窗 -->
-    <div id="project2-modal" class="modal">
-        <div class="modal-content relative">
-            <button onclick="closeModal('project2-modal')" class="absolute top-4 right-6 text-gray-400 hover:text-gray-800 text-3xl">&times;</button>
-            <h2 class="text-3xl font-bold mb-4">项目标题二</h2>
-            <div class="mb-6 rounded-lg overflow-hidden bg-gray-200">
-                 <img src="https://placehold.co/800x450/A2CDB8/FFFFFF?text=项目视频/图片" alt="项目二" class="w-full h-full object-cover">
-            </div>
-            <div class="leading-relaxed space-y-4">
-                <h3 class="text-xl font-semibold">概述</h3>
-                <p>项目的详细描述、它解决的问题以及其目的。</p>
-                <h3 class="text-xl font-semibold">我的角色与过程</h3>
-                <p>解释你的具体贡献。详细介绍你的工作流程。</p>
-                <h3 class="text-xl font-semibold">项目影响</h3>
-                <p>描述项目的结果。如果可能，使用指标。</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 项目3弹窗 -->
-    <div id="project3-modal" class="modal">
-        <div class="modal-content relative">
-            <button onclick="closeModal('project3-modal')" class="absolute top-4 right-6 text-gray-400 hover:text-gray-800 text-3xl">&times;</button>
-            <h2 class="text-3xl font-bold mb-4">项目标题三</h2>
-            <div class="mb-6 rounded-lg overflow-hidden bg-gray-200">
-                 <img src="https://placehold.co/800x450/F4D03F/FFFFFF?text=项目视频/图片" alt="项目三" class="w-full h-full object-cover">
-            </div>
-            <div class="leading-relaxed space-y-4">
-                <h3 class="text-xl font-semibold">概述</h3>
-                <p>项目的详细描述、它解决的问题以及其目的。</p>
-                <h3 class="text-xl font-semibold">我的角色与过程</h3>
-                <p>解释你的具体贡献。详细介绍你的工作流程。</p>
-                <h3 class="text-xl font-semibold">项目影响</h3>
-                <p>描述项目的结果。如果可能，使用指标。</p>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- JavaScript 交互脚本 -->
+    <!-- 脚本：移动端菜单与模态框 -->
     <script>
-        // 移动端菜单切换
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        // 移动端菜单
+        const menuBtn = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
+        menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
 
-        // 弹窗功能
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        // 模态框
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // 点击外部关闭弹窗
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
+        function closeModal(event, id) {
+            event.stopPropagation();
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = '';
         }
     </script>
-
 </body>
 </html>
