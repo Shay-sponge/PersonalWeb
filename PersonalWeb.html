@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- =================================================================== -->
+    <!-- 重要: 请将 "你的名字" 替换成你自己的名字 -->
+    <!-- =================================================================== -->
+    <title>你的名字 - 工程师 & HCI 设计师</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* 自定义样式和颜色变量 */
+        :root {
+            --bg-main: #FFFBF9; /* 主背景色 - 温暖的米白 */
+            --bg-section: #FDF2F2; /* 区块背景色 - 非常浅的粉色 */
+            --accent: #E69595; /* 主题色 - 柔和的粉色 */
+            --accent-hover: #D98282; /* 主题色悬停 */
+            --text-dark: #4D4242; /* 深色文字 - 暖灰色 */
+            --text-light: #F5EBEB; /* 浅色文字 */
+            --hero-bg: #453C3C; /* 头部深色背景 - 暖棕灰色 */
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.07), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+        }
+        .hero-bg {
+            background-color: var(--hero-bg);
+            color: var(--text-light);
+        }
+        .section-title {
+            @apply text-3xl font-bold mb-8 text-center;
+            color: var(--text-dark);
+        }
+        .card {
+            background-color: white;
+            border-radius: 1.5rem; /* 增加圆角 */
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        .modal {
+            @apply fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50;
+            display: none; /* Hidden by default */
+        }
+        .modal-content {
+            @apply bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto;
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            @apply px-5 py-2.5 rounded-xl font-semibold transition-colors;
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+        .tag {
+            background-color: var(--bg-section);
+            color: var(--accent);
+            @apply text-xs font-semibold px-3 py-1 rounded-full;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- 导航栏 -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-40 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold" style="color: var(--text-dark);">你的名字</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="hover:text-[var(--accent)] transition-colors">关于我</a>
+                <a href="#projects" class="hover:text-[var(--accent)] transition-colors">项目</a>
+                <a href="#patents" class="hover:text-[var(--accent)] transition-colors">专利</a>
+                <a href="#research" class="hover:text-[var(--accent)] transition-colors">研究</a>
+                <a href="#contact" class="btn-primary">联系我</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden">
+                <i class="fas fa-bars text-2xl" style="color: var(--text-dark);"></i>
+            </button>
+        </nav>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="block py-2 hover:text-[var(--accent)]">关于我</a>
+            <a href="#projects" class="block py-2 hover:text-[var(--accent)]">项目</a>
+            <a href="#patents" class="block py-2 hover:text-[var(--accent)]">专利</a>
+            <a href="#research" class="block py-2 hover:text-[var(--accent)]">研究</a>
+            <a href="#contact" class="block mt-2 btn-primary text-center">联系我</a>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <main>
+        <!-- 欢迎区域 -->
+        <section class="hero-bg py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <!-- 重要: 请替换成你的专业照片URL -->
+                <img src="https://placehold.co/160x160/FDF2F2/4D4242?text=你" alt="你的名字" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white/50 shadow-lg">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">工程师 & HCI 设计师</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8" style="color: var(--text-light);">
+                    <!-- 重要: 写一段简短而有力的个人介绍 -->
+                    我通过连接复杂的工程技术与用户体验设计，创造直观、以人为本的科技产品。
+                </p>
+                <a href="#projects" class="bg-white font-semibold px-8 py-3 rounded-xl hover:bg-gray-200 transition-transform transform hover:scale-105" style="color: var(--accent);">查看我的作品</a>
+            </div>
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">关于我</h2>
+                <div class="max-w-4xl mx-auto text-center text-lg leading-relaxed">
+                    <!-- 重要: 写几段关于你的背景、理念和技能的介绍 -->
+                    <p class="mb-4">
+                        我是一名充满热情的工程师和人机交互设计师，致力于创造既实用又令人愉悦的产品。我的机械工程背景为我打下了坚实的问题解决和系统思维基础，而我在HCI领域的专业知识则让我能够在设计过程的每个阶段都为用户发声。
+                    </p>
+                    <p class="mb-4">
+                        我的设计理念植根于同理心和迭代开发。我相信最好的解决方案来自于对用户需求的深刻理解，并通过持续的研究和原型设计进行验证。我擅长使用多种设计和工程工具，并乐于在协作环境中与跨职能团队合作，将想法变为现实。
+                    </p>
+                    <!-- 重要: 替换成你的简历PDF文件链接 -->
+                    <a href="your_resume.pdf" download class="inline-block mt-6 btn-primary">
+                        <i class="fas fa-download mr-2"></i> 下载我的简历
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 项目 -->
+        <section id="projects" class="py-20" style="background-color: var(--bg-section);">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">我的项目</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- 项目 1 -->
+                    <div class="card cursor-pointer" onclick="openModal('project1-modal')">
+                        <!-- 重要: 替换成你的项目图片URL -->
+                        <img src="https://placehold.co/600x400/E69595/FFFFFF?text=项目一" alt="项目一" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">项目标题一</h3>
+                            <p class="text-gray-600 mb-4 text-sm">用一句话简要描述项目及其影响。</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">UX 设计</span>
+                                <span class="tag">原型制作</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 项目 2 -->
+                    <div class="card cursor-pointer" onclick="openModal('project2-modal')">
+                        <!-- 重要: 替换成你的项目图片URL -->
+                        <img src="https://placehold.co/600x400/A2CDB8/FFFFFF?text=项目二" alt="项目二" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">项目标题二</h3>
+                            <p class="text-gray-600 mb-4 text-sm">用一句话简要描述项目及其影响。</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag">硬件</span>
+                                <span class="tag">工程</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 项目 3 -->
+                    <div class="card cursor-pointer" onclick="openModal('project3-modal')">
+                        <!-- 重要: 替换成你的项目图片URL -->
+                        <img src="https://placehold.co/600x400/F4D03F/FFFFFF?text=项目三" alt="项目三" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">项目标题三</h3>
+                            <p class="text-gray-600 mb-4 text-sm">用一句话简要描述项目及其影响。</p>
+                             <div class="flex flex-wrap gap-2">
+                                <span class="tag">移动应用</span>
+                                <span class="tag">用户研究</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 专利 -->
+        <section id="patents" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">我的专利</h2>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- 专利 1 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100">
+                        <h3 class="text-xl font-bold">直观手势控制的系统与方法</h3>
+                        <p class="text-gray-500 mb-2 text-sm">专利号: US 12,345,678 B2 | 授权日期: 2024年5月15日</p>
+                        <p class="leading-relaxed">
+                            <!-- 重要: 添加你的专利描述 -->
+                            该专利涵盖一种新颖的系统，允许用户使用直观的手势来控制机械臂，显著降低了复杂机器人任务的学习曲线。该系统结合了计算机视觉和机器学习来准确解释用户意图。
+                        </p>
+                        <!-- 重要: 添加专利文件的链接 -->
+                        <a href="#" class="mt-4 inline-block font-semibold" style="color: var(--accent);">查看专利详情 &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 研究 -->
+        <section id="research" class="py-20" style="background-color: var(--bg-section);">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">我的研究</h2>
+                <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">移动票务应用的可用性研究</h3>
+                    <p class="text-gray-500 mb-4">角色: 首席研究员</p>
+                    <div class="space-y-4 leading-relaxed">
+                        <p><strong>概述:</strong> 一个混合方法研究项目，旨在识别移动公交应用中的常见可用性问题，并提出数据驱动的设计建议，以改善日常通勤者的用户体验。</p>
+                        <p><strong>主要发现:</strong> 分析揭示了三个主要的改进领域：混乱的导航、不直观的支付流程和糟糕的错误反馈。这些问题通过对150名通勤者的调查和对12名参与者的深度访谈得到了验证。</p>
+                        <p><strong>影响:</strong> 该研究最终形成了一份详细的报告，其中包含可行的建议和一套线框图，展示了重新设计的、用户友好的信息架构。</p>
+                    </div>
+                    <!-- 重要: 添加你的研究报告PDF链接 -->
+                    <a href="your_research_report.pdf" download class="inline-block mt-6 btn-primary">
+                        <i class="fas fa-file-pdf mr-2"></i> 下载完整报告
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer id="contact" class="py-12" style="background-color: var(--hero-bg); color: var(--text-light);">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">与我联系</h2>
+            <p class="max-w-2xl mx-auto mb-8">
+                我目前正在寻找新的机会，并期待与您交流。无论您是有问题还是只想打个招呼，都欢迎随时与我联系。
+            </p>
+            <!-- 重要: 替换成你的邮箱地址 -->
+            <a href="mailto:your.email@example.com" class="inline-block bg-white/20 text-white font-semibold px-8 py-3 rounded-xl hover:bg-white/30 transition-colors mb-8">
+                your.email@example.com
+            </a>
+            <div class="flex justify-center space-x-6 text-2xl">
+                <!-- 重要: 将'#'替换成你的社交媒体链接 -->
+                <a href="#" class="hover:text-[var(--accent)] transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="hover:text-[var(--accent)] transition-colors"><i class="fab fa-github"></i></a>
+                <a href="#" class="hover:text-[var(--accent)] transition-colors"><i class="fab fa-dribbble"></i></a>
+            </div>
+            <p class="mt-8 text-gray-400 text-sm">&copy; 2025 你的名字. 保留所有权利。</p>
+        </div>
+    </footer>
+
+    <!-- 项目弹窗 -->
+    <!-- 重要: 在这里为你的每个项目添加详细内容 -->
+    
+    <!-- 项目1弹窗 -->
+    <div id="project1-modal" class="modal">
+        <div class="modal-content relative">
+            <button onclick="closeModal('project1-modal')" class="absolute top-4 right-6 text-gray-400 hover:text-gray-800 text-3xl">&times;</button>
+            <h2 class="text-3xl font-bold mb-4">项目标题一</h2>
+            <!-- 重要: 替换成你的项目视频或图片 -->
+            <div class="mb-6 rounded-lg overflow-hidden bg-gray-200">
+                 <img src="https://placehold.co/800x450/E69595/FFFFFF?text=项目视频/图片" alt="项目一" class="w-full h-full object-cover">
+            </div>
+            <div class="leading-relaxed space-y-4">
+                <h3 class="text-xl font-semibold">概述</h3>
+                <p>项目的详细描述、它解决的问题以及其目的。</p>
+                <h3 class="text-xl font-semibold">我的角色与过程</h3>
+                <p>解释你的具体贡献。详细介绍你的工作流程：用户研究、构思、原型制作、测试和最终实施。</p>
+                <h3 class="text-xl font-semibold">项目影响</h3>
+                <p>描述项目的结果。如果可能，使用指标（例如，“用户满意度提高了20%”）。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 项目2弹窗 -->
+    <div id="project2-modal" class="modal">
+        <div class="modal-content relative">
+            <button onclick="closeModal('project2-modal')" class="absolute top-4 right-6 text-gray-400 hover:text-gray-800 text-3xl">&times;</button>
+            <h2 class="text-3xl font-bold mb-4">项目标题二</h2>
+            <div class="mb-6 rounded-lg overflow-hidden bg-gray-200">
+                 <img src="https://placehold.co/800x450/A2CDB8/FFFFFF?text=项目视频/图片" alt="项目二" class="w-full h-full object-cover">
+            </div>
+            <div class="leading-relaxed space-y-4">
+                <h3 class="text-xl font-semibold">概述</h3>
+                <p>项目的详细描述、它解决的问题以及其目的。</p>
+                <h3 class="text-xl font-semibold">我的角色与过程</h3>
+                <p>解释你的具体贡献。详细介绍你的工作流程。</p>
+                <h3 class="text-xl font-semibold">项目影响</h3>
+                <p>描述项目的结果。如果可能，使用指标。</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 项目3弹窗 -->
+    <div id="project3-modal" class="modal">
+        <div class="modal-content relative">
+            <button onclick="closeModal('project3-modal')" class="absolute top-4 right-6 text-gray-400 hover:text-gray-800 text-3xl">&times;</button>
+            <h2 class="text-3xl font-bold mb-4">项目标题三</h2>
+            <div class="mb-6 rounded-lg overflow-hidden bg-gray-200">
+                 <img src="https://placehold.co/800x450/F4D03F/FFFFFF?text=项目视频/图片" alt="项目三" class="w-full h-full object-cover">
+            </div>
+            <div class="leading-relaxed space-y-4">
+                <h3 class="text-xl font-semibold">概述</h3>
+                <p>项目的详细描述、它解决的问题以及其目的。</p>
+                <h3 class="text-xl font-semibold">我的角色与过程</h3>
+                <p>解释你的具体贡献。详细介绍你的工作流程。</p>
+                <h3 class="text-xl font-semibold">项目影响</h3>
+                <p>描述项目的结果。如果可能，使用指标。</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript 交互脚本 -->
+    <script>
+        // 移动端菜单切换
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 弹窗功能
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击外部关闭弹窗
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
