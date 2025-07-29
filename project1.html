@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>XR空间中获得触觉反馈的输入法 - 项目详情</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+    <h1 class="text-3xl font-bold mb-4">XR空间中获得触觉反馈的输入法</h1>
+    <p class="mb-4 text-gray-600">本项目探索在XR（扩展现实）空间中，通过微手势与机器学习技术，实现具有触觉反馈的虚拟输入法，提升用户在虚拟环境中的输入效率与沉浸感。</p>
+    
+    <div class="mb-6">
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/xpcfwCytYEw" title="Demo Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    
+    <h2 class="text-xl font-semibold mb-2">项目亮点</h2>
+    <ul class="list-disc pl-6 mb-4">
+      <li>基于Unity开发，适配主流XR头显设备。</li>
+      <li>采用微手势识别技术，支持多种自然手势输入。</li>
+      <li>集成机器学习模型，提升手势识别准确率。</li>
+      <li>通过振动马达或力反馈设备，为用户提供实时触觉反馈。</li>
+      <li>支持自定义输入布局和个性化手势训练。</li>
+    </ul>
+    
+    <h2 class="text-xl font-semibold mb-2">技术方案</h2>
+    <ul class="list-disc pl-6 mb-4">
+      <li><strong>手势采集：</strong>利用XR手部追踪API，实时采集手指关节位置与动作数据。</li>
+      <li><strong>机器学习识别：</strong>采用卷积神经网络（CNN）或时序神经网络（LSTM）对手势数据进行训练和分类。</li>
+      <li><strong>触觉反馈：</strong>通过硬件接口控制振动马达或力反馈装置，实现按键确认、滑动等多种触觉提示。</li>
+      <li><strong>输入法逻辑：</strong>支持虚拟键盘、手势快捷输入、连续输入等多种输入模式。</li>
+    </ul>
+    
+    <h2 class="text-xl font-semibold mb-2">数据采集与分析</h2>
+    <ul class="list-disc pl-6 mb-4">
+      <li>采集用户手势数据、输入时序、误触率、输入速度等关键指标。</li>
+      <li>分析不同手势和反馈方式对输入效率和用户体验的影响。</li>
+      <li>基于数据持续优化手势识别模型和触觉反馈策略。</li>
+    </ul>
+    
+    <h2 class="text-xl font-semibold mb-2">应用前景</h2>
+    <ul class="list-disc pl-6 mb-4">
+      <li>适用于XR办公、虚拟社交、远程协作等多种场景。</li>
+      <li>为有特殊需求的用户（如行动不便者）提供更友好的输入方式。</li>
+      <li>可扩展至更多XR交互应用，如虚拟绘画、游戏控制等。</li>
+    </ul>
+    
+    <div class="mt-8">
+      <a href="index.html" class="text-blue-600 hover:underline">&larr; 返回首页</a>
+    </div>
+  </div>
+</body>
+</html>
