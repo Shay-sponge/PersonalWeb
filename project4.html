@@ -1,1 +1,153 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Project 4 - 训练风格游戏UI元素LoRA模型（待微调版）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { background: #f9f9f9; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; padding: 24px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);}
+        h1 { text-align: center; margin-bottom: 24px; }
+        h2 { margin-top: 36px; color: #333; }
+        .tags { margin: 24px 0; }
+        .tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #3730a3;
+            border-radius: 16px;
+            padding: 4px 14px;
+            margin: 4px 6px 4px 0;
+            font-size: 15px;
+        }
+        ul { margin: 12px 0; padding-left: 24px; }
+        li { margin-bottom: 8px; }
+        .mermaid {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 24px 0;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 8px; }
+        }
+    </style>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>基于LoRA的中世纪fantasy风格游戏UI元素生成</h1>
+        
+        <h2>项目简介</h2>
+        <p>
+            本项目旨在探索和验证通过 LoRA（Low-Rank Adaptation）模型对风格化很强的 UI 元素进行生成的可行性与效果。项目特别聚焦于中世纪fantasy风格的游戏UI元素（如 Icon、边框、底部图像、Button 等），这些元素具有强烈的幻想元素、纹理细节和中世纪氛围（如古旧卷轴、魔法符文、骑士纹章等）。为了全面验证模型的适应性，我们分别针对三种中世纪fantasy风格变体（经典中世纪、黑暗幻想、史诗奇幻）进行训练和测试。
+        </p>
+        
+        <h2>数据集与风格</h2>
+        <ul>
+            <li><b>风格类型</b>：3 种中世纪fantasy变体（经典中世纪：强调历史真实感；黑暗幻想：融入哥特与黑暗元素；史诗奇幻：突出宏大叙事与魔法效果）</li>
+            <li><b>每种风格训练集</b>：约 2000 张高质量游戏UI元素图片，来源包括专业游戏设计资源和自定义生成数据集</li>
+            <li><b>测试集</b>：每种风格均配备独立测试集，用于评估泛化能力和风格一致性</li>
+        </ul>
+        
+        <h2>硬件与训练环境</h2>
+        <ul>
+            <li><b>GPU型号</b>：NVIDIA A100 80GB</li>
+            <li><b>GPU数量</b>：4 块</li>
+            <li><b>训练时长</b>：每个风格的 LoRA 训练约 18 小时，总计约 54 小时</li>
+            <li><b>深度学习框架</b>：PyTorch + Diffusers</li>
+            <li><b>显存占用</b>：单卡约 60GB，分布式数据并行加速</li>
+        </ul>
+        
+        <h2>LoRA专家模式设置</h2>
+        <ul>
+            <li><b>专家模式</b>：采用 LoRA 多专家（Expert）机制，每个专家负责不同的 UI 元素类型（如 Icon、Button、边框等），以更好地捕捉中世纪fantasy风格的强烈纹理、颜色和幻想细节，提升模型对细粒度风格特征的捕捉能力。</li>
+            <li><b>参数配置</b>：
+                <ul>
+                    <li>LoRA Rank：32</li>
+                    <li>Alpha：16</li>
+                    <li>Dropout：0.1</li>
+                    <li>专家数：4（分别对应不同元素类型）</li>
+                </ul>
+            </li>
+            <li><b>训练策略</b>：
+                <ul>
+                    <li>采用分组专家路由（Mixture of Experts, MoE），输入样本根据元素类型自动分配给对应专家分支</li>
+                    <li>每个专家分支独立优化，主干网络共享底层特征</li>
+                    <li>动态 loss 加权，确保各专家均衡收敛，并特别强调对fantasy风格的纹理（如金属锈蚀、魔法光效）和颜色渐变（如深红与金色调）的学习</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h2>训练流程</h2>
+        <div class="mermaid">
+        flowchart TD
+            A[数据预处理] --> B[LoRA模型初始化]
+            B --> C[分布式训练]
+            C --> D[专家路由与优化]
+            D --> E[模型评估]
+            E --> F[结果应用与排布]
+
+            subgraph 详细说明
+                A1[归一化、尺寸统一、风格标签标注]
+                A --> A1
+
+                B1[基于Stable Diffusion加载LoRA插件]
+                B2[启用专家模式]
+                B --> B1
+                B --> B2
+
+                C1[利用4块A100 GPU进行并行训练]
+                C --> C1
+
+                D1[动态分配专家分支]
+                D2[优化参数，强化fantasy纹理学习]
+                D --> D1
+                D --> D2
+
+                E1[评估风格一致性、细节还原度]
+                E --> E1
+
+                F1[生成UI元素]
+                F2[接入LLM自动排布]
+                F --> F1
+                F --> F2
+            end
+        </div>
+        
+        <h2>结果与应用</h2>
+        <ul>
+            <li><b>生成效果</b>：训练完成后，LoRA 模型能够高质量生成训练集中中世纪fantasy风格的单个 UI 元素，细节丰富且风格强烈（如生成带有魔法符文的按钮或古旧卷轴边框）。</li>
+            <li><b>自动排布</b>：将生成的 UI 元素输入大语言模型（如 LLM），根据文本描述自动排布和组合，最终生成贴合指定fantasy风格的完整 UI 组件。</li>
+            <li><b>泛化能力</b>：模型对未见过的元素类型也能生成风格一致的图像，具备良好的泛化能力，尤其在处理复杂幻想纹理时表现出色。</li>
+        </ul>
+        
+        <h2>技术亮点</h2>
+        <ul>
+            <li>利用 LoRA 专家模式提升了模型对中世纪fantasy风格强烈风格化特征的适应性和细节表现力</li>
+            <li>多 GPU 分布式训练大幅缩短了训练周期</li>
+            <li>结合大语言模型实现了从单元素生成到完整 UI 组件自动化设计的闭环</li>
+        </ul>
+        
+        <h2>项目标签</h2>
+        <div class="tags">
+            <span class="tag">LoRA模型</span>
+            <span class="tag">游戏UI生成</span>
+            <span class="tag">风格迁移</span>
+            <span class="tag">分布式训练</span>
+            <span class="tag">机器学习</span>
+            <span class="tag">图像生成</span>
+            <span class="tag">设计自动化</span>
+            <span class="tag">大语言模型</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">Stable Diffusion</span>
+            <span class="tag">人工智能设计</span>
+       
+          
+        </div>
+    </div>
+</body>
+</html>
