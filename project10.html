@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+ 
     <style>
         html, body {
             height: 100%;
@@ -15,14 +15,17 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            overflow: auto;
         }
         img {
-            max-width: 100vw;
-            max-height: 100vh;
-            object-fit: contain;
-            border-radius: 12px;
+            /* 先让图片不可缩放，再用transform放大5倍 */
+            image-rendering: auto;
+            transform: scale(5);
+            /* 保证图片居中 */
+            display: block;
             box-shadow: 0 4px 24px rgba(0,0,0,0.3);
             background: #fff;
+            border-radius: 12px;
         }
     </style>
 </head>
